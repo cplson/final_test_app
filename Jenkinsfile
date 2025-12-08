@@ -30,7 +30,7 @@ pipeline {
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                         snykSecurity(
                             snykInstallation: 'Snyk-installations',
-                            snykTokenId: 'Snyk-API-token',
+                            snykTokenId: 'Snyk-Token',
                             severity: 'critical'
                         )
                     }
