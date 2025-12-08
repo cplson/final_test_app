@@ -7,7 +7,7 @@ pipeline
      environment
      {
         // Docker Hub credentials ID stored in Jenkins
-        DOCKERHUB_CREDENTIALS = 'cweb_2140'
+        DOCKERHUB_CREDENTIALS = 'github-token'
         IMAGE_NAME = 'jacjamg/final_node:latest'
      }
 
