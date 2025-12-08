@@ -2,21 +2,22 @@ pipeline
 {
      agent any
  
-    stages {
+
+     
+     environment
+     {
+        // Docker Hub credentials ID stored in Jenkins
+        DOCKERHUB_CREDENTIALS = 'cweb_2140'
+        IMAGE_NAME = 'jacjamg/final_node:latest'
+     }
+
+     stages {
         stage('Cloning Git') {
             steps {
                 checkout scm
             }
         }
     }
-     
-    //  environment
-    //  {
-    //     // Docker Hub credentials ID stored in Jenkins
-    //     DOCKERHUB_CREDENTIALS = 'cweb_2140'
-    //     IMAGE_NAME = 'jacjamg/final_node:latest'
-    //  }
-
     // stages 
     // {
     //     stage('Cloning Git')
