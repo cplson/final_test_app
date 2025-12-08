@@ -23,70 +23,70 @@ pipeline {
         /* -------------------------------------------------------------------
            SNYK (NON-BLOCKING)
         -------------------------------------------------------------------*/
-        stage('SAST-TEST') {
-            steps {
-                script {
-                    echo "Running Snyk (non-blocking)..."
-                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                        snykSecurity(
-                            snykInstallation: 'Snyk-installations',
-                            snykTokenId: 'Snyk-Token',
-                            severity: 'critical'
-                        )
-                    }
-                }
-            }
-        }
+        // stage('SAST-TEST') {
+        //     steps {
+        //         script {
+        //             echo "Running Snyk (non-blocking)..."
+        //             catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+        //                 snykSecurity(
+        //                     snykInstallation: 'Snyk-installations',
+        //                     snykTokenId: 'Snyk-Token',
+        //                     severity: 'critical'
+        //                 )
+        //             }
+        //         }
+        //     }
+        // }
 
         /* -------------------------------------------------------------------
            SONARQUBE (NON-BLOCKING)
         -------------------------------------------------------------------*/
-        stage('SonarQube Analysis') {
-            agent { label 'CWEB2140-app-server' }
-            steps {
-                script {
-                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                        def scannerHome = tool 'sonarcube'
-                        withSonarQubeEnv('SonarQube-installations') {
-                            sh """
-                                ${scannerHome}/bin/sonar-scanner \
-                                -Dsonar.projectKey=final_test_app \
-                                -Dsonar.sources=.
-                            """
-                        }
-                    }
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     agent { label 'CWEB2140-app-server' }
+        //     steps {
+        //         script {
+        //             catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+        //                 def scannerHome = tool 'sonarcube'
+        //                 withSonarQubeEnv('SonarQube-installations') {
+        //                     sh """
+        //                         ${scannerHome}/bin/sonar-scanner \
+        //                         -Dsonar.projectKey=final_test_app \
+        //                         -Dsonar.sources=.
+        //                     """
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         /* -------------------------------------------------------------------
            DOCKER BUILD (BLOCKING)
         -------------------------------------------------------------------*/
-        stage('BUILD-AND-TAG') {
-            agent { label 'CWEB2140-app-server' }
-            steps {
-                script {
-                    echo "Building Docker image ${IMAGE_NAME}..."
-                    app = docker.build("${IMAGE_NAME}")
-                    app.tag("latest")
-                }
-            }
-        }
+        // stage('BUILD-AND-TAG') {
+        //     agent { label 'CWEB2140-app-server' }
+        //     steps {
+        //         script {
+        //             echo "Building Docker image ${IMAGE_NAME}..."
+        //             app = docker.build("${IMAGE_NAME}")
+        //             app.tag("latest")
+        //         }
+        //     }
+        // }
 
         /* -------------------------------------------------------------------
            PUSH TO DOCKER HUB (BLOCKING)
         -------------------------------------------------------------------*/
-        stage('POST-TO-DOCKERHUB') {
-            agent { label 'CWEB2140-app-server' }
-            steps {
-                script {
-                    echo "Pushing to DockerHub..."
-                    docker.withRegistry('https://registry.hub.docker.com', "${DOCKERHUB_CREDENTIALS}") {
-                        app.push("latest")
-                    }
-                }
-            }
-        }
+        // stage('POST-TO-DOCKERHUB') {
+        //     agent { label 'CWEB2140-app-server' }
+        //     steps {
+        //         script {
+        //             echo "Pushing to DockerHub..."
+        //             docker.withRegistry('https://registry.hub.docker.com', "${DOCKERHUB_CREDENTIALS}") {
+        //                 app.push("latest")
+        //             }
+        //         }
+        //     }
+        // }
 
         /* -------------------------------------------------------------------
            TRIVY SCAN (NON-BLOCKING)
