@@ -1,6 +1,6 @@
 FROM mhart/alpine-node
 # COPY . /app
-RUN npm install
+# RUN npm install
 COPY /app/package*.json ./app
 # CMD node /app/index.js
 EXPOSE  3000
