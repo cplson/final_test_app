@@ -47,7 +47,7 @@ pipeline {
                 script {
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                         def scannerHome = tool 'SonarQube-Scanner'
-                        withSonarQubeEnv('SonarQube-installations') {
+                        withSonarQubeEnv('sonarcube') {
                             sh """
                                 ${scannerHome}/bin/sonar-scanner \
                                 -Dsonar.projectKey=gameapp \
