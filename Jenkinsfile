@@ -12,7 +12,8 @@ pipeline {
         REPORT_JSON = "zap_report.json"
         ZAP_IMAGE = "ghcr.io/zaproxy/zaproxy:stable"
         REPORT_DIR = "${env.WORKSPACE}/zap_reports"
-        SNYK_CREDENTIALS = "${SNYK_SECRET}"
+        SECRET = "${SNYK_SECRET}"
+        CREDENTIALS = "${SNYK_SECRET}"
     }
 
     stages {
@@ -33,10 +34,10 @@ pipeline {
                 script {
                     echo "Running Snyk (non-blocking)..."
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    //      withCredentials([string(credentialsId: "${SNYK_CREDENTIALS}", variable: 'jenkins-snyk')]){
+                         withCredentials([string(credentialsId: "${CREDENTIALS}", variable: 'jenkins-snyk')]){
                             snykSecurity(
                                 snykInstallation: 'Snyk-installations@latest',
-                                snykTokenId: "${SNYK_CREDENTIALS}",
+                                snykTokenId: "${SECRET}",
                                 severity: 'critical'
                             )
                          // }
