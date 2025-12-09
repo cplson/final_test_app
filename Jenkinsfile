@@ -17,8 +17,13 @@ pipeline {
     stages {
 
         stage('Cloning Git') {
-            steps { checkout scm }
+            steps {
+                sshagent(['appserver']) {
+                    checkout scm
+                }
+            }
         }
+
 
         /* -------------------------------------------------------------------
            SNYK (NON-BLOCKING)
