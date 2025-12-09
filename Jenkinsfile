@@ -18,10 +18,9 @@ pipeline {
 
         stage('Cloning Git') {
             steps {
-                sshagent(['appserver']) {
+                
                     checkout scm
                 }
-            }
         }
 
 
