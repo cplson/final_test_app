@@ -28,23 +28,40 @@ pipeline {
         /* -------------------------------------------------------------------
            SNYK (NON-BLOCKING)
         -------------------------------------------------------------------*/
-        stage('SAST-TEST') {
-            steps {
-                script {
-                    echo "Running Snyk (non-blocking)..."
-                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    //      withCredentials([string(credentialsId: "${SNYK_CREDENTIALS}", variable: 'jenkins-snyk')]){
-                            snykSecurity(
-                                snykInstallation: 'MyLocalSnyk',
-                                snykTokenId: "${SNYK_CREDENTIALS}",
-                                severity: 'critical'
-                            )
-                         // }
+        // stage('SAST-TEST') {
+        //     steps {
+        //         script {
+        //             echo "Running Snyk (non-blocking)..."
+        //             catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+        //             //      withCredentials([string(credentialsId: "${SNYK_CREDENTIALS}", variable: 'jenkins-snyk')]){
+        //                     snykSecurity(
+        //                         snykInstallation: 'MyLocalSnyk',
+        //                         snykTokenId: "${SNYK_CREDENTIALS}",
+        //                         severity: 'critical'
+        //                     )
+        //                  // }
 
-                    }
-                }
+        //             }
+        //         }
+        //     }
+        // }
+
+        stage('SAST-TEST') {
+    steps {
+        script {
+            echo "Running Snyk..."
+
+            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                snykSecurity(
+                    snykInstallation: 'Snyk-installations',
+                    snykTokenId: 'jenkins-snyk',  // must exist as Secret Text
+                    severity: 'critical'
+                )
             }
         }
+    }
+}
+
 
         /* -------------------------------------------------------------------
            SONARQUBE (NON-BLOCKING)
