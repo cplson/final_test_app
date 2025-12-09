@@ -36,7 +36,7 @@ pipeline {
                     //      withCredentials([string(credentialsId: "${SNYK_CREDENTIALS}", variable: 'jenkins-snyk')]){
                             snykSecurity(
                                 snykInstallation: 'MyLocalSnyk',
-                                snykTokenId: "${SNYK_CREDENTIALS}";,
+                                snykTokenId: "${SNYK_CREDENTIALS}",
                                 severity: 'critical'
                             )
                          // }
