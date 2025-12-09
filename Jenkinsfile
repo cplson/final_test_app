@@ -35,7 +35,7 @@ pipeline {
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                          withCredentials([string(credentialsId: "${SNYK_CREDENTIALS}", variable: 'jenkins-snyk')]){
                             snykSecurity(
-                                snykInstallation: 'Snyk-installations',
+                                snykInstallation: 'MyLocalSnyk',
                                 severity: 'critical'
                             )
                          }
