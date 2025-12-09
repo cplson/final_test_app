@@ -30,7 +30,7 @@ pipeline {
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                         snykSecurity(
                             snykInstallation: 'Snyk-installations',
-                            snykTokenId: 'Snyk-API-token',
+                            snykTokenId: 'Snyk-Token',
                             severity: 'critical'
                         )
                     }
@@ -46,8 +46,8 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                        def scannerHome = tool 'SonarQube-Scanner'
-                        withSonarQubeEnv('sonarcube') {
+                        def scannerHome = tool 'sonarqube'
+                        withSonarQubeEnv('SonarQube-installations') {
                             sh """
                                 ${scannerHome}/bin/sonar-scanner \
                                 -Dsonar.projectKey=gameapp \
