@@ -1,7 +1,7 @@
 FROM mhart/alpine-node
 # COPY . /app
 # RUN npm install
-COPY /app/package*.json ./app
+COPY /app/package*.json . /app
 # CMD node /app/index.js
 EXPOSE  3000
 CMD ["node", "index.js"]
