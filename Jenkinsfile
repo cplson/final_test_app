@@ -32,7 +32,7 @@ pipeline {
                 script {
                     echo "Running Snyk (non-blocking)..."
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                         withCredentials([string(credentialsId: "${jenkins-snyk}", variable: 'jenkins-snyk')]){
+                         withCredentials([string(credentialsId: "jenkins-snyk", variable: 'jenkins-snyk')]){
                             snykSecurity(
                                 snykInstallation: 'Snyk-installations',
                                 snykTokenId: 'jenkins-snyk',
