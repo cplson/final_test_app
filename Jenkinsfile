@@ -53,8 +53,6 @@ pipeline {
 
             catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                 snykSecurity(
-                    snykInstallation: 'Snyk-installations@latest',
-                    snykTokenId: 'jenkins-snyk',  // must exist as Secret Text
                     severity: 'critical'
                 )
             }
