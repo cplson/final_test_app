@@ -28,37 +28,37 @@ pipeline {
         /* -------------------------------------------------------------------
            SNYK (NON-BLOCKING)
         -------------------------------------------------------------------*/
-        // stage('SAST-TEST') {
-        //     steps {
-        //         script {
-        //             echo "Running Snyk (non-blocking)..."
-        //             catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-        //             //      withCredentials([string(credentialsId: "${SNYK_CREDENTIALS}", variable: 'jenkins-snyk')]){
-        //                     snykSecurity(
-        //                         snykInstallation: 'MyLocalSnyk',
-        //                         snykTokenId: "${SNYK_CREDENTIALS}",
-        //                         severity: 'critical'
-        //                     )
-        //                  // }
-
-        //             }
-        //         }
-        //     }
-        // }
-
         stage('SAST-TEST') {
-    steps {
-        script {
-            echo "Running Snyk..."
+            steps {
+                script {
+                    echo "Running Snyk (non-blocking)..."
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    //      withCredentials([string(credentialsId: "${SNYK_CREDENTIALS}", variable: 'jenkins-snyk')]){
+                            snykSecurity(
+                                snykInstallation: 'Snyk-installations@latest',
+                                // snykTokenId: "${SNYK_CREDENTIALS}",
+                                severity: 'critical'
+                            )
+                         // }
 
-            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                snykSecurity(
-                    severity: 'critical'
-                )
+                    }
+                }
             }
         }
-    }
-}
+
+//         stage('SAST-TEST') {
+//     steps {
+//         script {
+//             echo "Running Snyk..."
+
+//             catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+//                 snykSecurity(
+//                     severity: 'critical'
+//                 )
+//             }
+//         }
+//     }
+// }
 
 
         /* -------------------------------------------------------------------
