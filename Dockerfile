@@ -1,25 +1,23 @@
-# FROM mhart/alpine-node
+FROM mhart/alpine-node
 # COPY . /app
+RUN npm install
+COPY /app/package*.json ./app
 # CMD node /app/index.js
-# EXPOSE  3000
+EXPOSE  3000
+CMD ["node", "index.js"]
 
-# Use official Node.js LTS image
-FROM node:20
 
-# Set working directory
-WORKDIR /app
-
-# Copy package files first (for caching)
-COPY package*.json ./
+# package files first (for caching)
+# COPY /app/package*.json ./app
 
 # Install dependencies
-RUN npm install
+# RUN npm install
 
 # Copy app source
-COPY . /app
+# COPY . /app
 
 # Expose port 3000
-EXPOSE 3000
+# EXPOSE 3000
 
 # Start the app
-CMD ["node", "index.js"]
+# CMD ["node", "index.js"]
