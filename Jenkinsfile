@@ -14,6 +14,7 @@ pipeline {
         REPORT_DIR = "${env.WORKSPACE}/zap_reports"
         SNYK_CRED_ID = "s_credentials_id"
         SNYK_SECRET = "snyk_token"
+        SNYK_API_OVERRIDE = "https://snyk.io/api"
     }
 
     stages {
@@ -25,16 +26,21 @@ pipeline {
                 }
         }
 
-
+        
         /* -------------------------------------------------------------------
            SNYK (NON-BLOCKING)
         -------------------------------------------------------------------*/
+
+
+        
         stage('SAST-TEST') {
             steps {
                 script {
+                    sh 'echo "SNYK_API = SNYK_API_OVERRIDE"'
                     echo "Running Snyk (non-blocking)..."
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                          withCredentials([string(credentialsId: "${SNYK_CRED_ID}", variable: "${SNYK_SECRET}")]){
+                             echo "snyk-ap
                             snykSecurity(
                                 snykInstallation: 'Snyk-installations@latest',
                                 severity: 'critical'
@@ -46,19 +52,6 @@ pipeline {
             }
         }
 
-//         stage('SAST-TEST') {
-//     steps {
-//         script {
-//             echo "Running Snyk..."
-
-//             catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-//                 snykSecurity(
-//                     severity: 'critical'
-//                 )
-//             }
-//         }
-//     }
-// }
 
 
         /* -------------------------------------------------------------------
