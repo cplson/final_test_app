@@ -54,6 +54,37 @@ pipeline {
             }
         }
 
+        
+        // stage('SAST-TEST') {
+        //     steps {
+        //         sh '''
+        //             echo "SNYK_API = $SNYK_API"
+        //             curl -I $SNYK_API
+        
+        //             echo "[INFO] Ensuring Snyk CLI is installed..."
+        //             if ! command -v snyk >/dev/null 2>&1; then
+        //                 echo "[INFO] Running custom Snyk installer wrapper"
+        //                 sudo /usr/local/bin/install_snyk_wrapper.sh
+        //             else
+        //                 echo "[INFO] Snyk already installed"
+        //             fi
+        //         '''
+        
+        //         withCredentials([string(credentialsId: "${SNYK_CRED_ID}", variable: "SNYK_TOKEN")]) {
+        //             sh '''
+        //                 echo "[INFO] Running Snyk CLI test (non-blocking)…"
+        //                 snyk test --severity-threshold=high || true
+        
+        //                 echo "[INFO] Generating Snyk HTML Report"
+        //                 snyk test --json > snyk_report.json || true
+        //                 snyk-to-html -i snyk_report.json -o snyk_report.html
+        //             '''
+        //         }
+        
+        //         archiveArtifacts artifacts: "snyk_report.json,snyk_report.html", allowEmptyArchive: true
+        //     }
+        // }
+        
 
 
         /* -------------------------------------------------------------------
