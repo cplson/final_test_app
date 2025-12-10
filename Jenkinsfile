@@ -13,7 +13,7 @@ pipeline {
         ZAP_IMAGE = "ghcr.io/zaproxy/zaproxy:stable"
         REPORT_DIR = "${env.WORKSPACE}/zap_reports"
         SECRET = "${SNYK_SECRET}"
-        CREDENTIALS = "${SNYK_SECRET}"
+        CREDENTIALS = 'jenkins-snyk'
     }
 
     stages {
