@@ -35,7 +35,10 @@ pipeline {
         
         stage('SAST-TEST') {
             steps {
-                sh 'echo "SNYK_API = $SNYK_API"'
+                sh '''
+                    echo "SNYK_API = $SNYK_API"
+                    curl -I $SNYK_API
+                '''
                 script {
                     echo "Running Snyk (non-blocking)..."
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
