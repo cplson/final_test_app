@@ -35,8 +35,8 @@ pipeline {
         
         stage('SAST-TEST') {
             steps {
+                sh 'echo "SNYK_API = $SNYK_API"'
                 script {
-                    sh 'echo "SNYK_API = SNYK_API_OVERRIDE"'
                     echo "Running Snyk (non-blocking)..."
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                          withCredentials([string(credentialsId: "${SNYK_CRED_ID}", variable: "${SNYK_SECRET}")]){
