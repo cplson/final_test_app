@@ -34,7 +34,7 @@ pipeline {
                 script {
                     echo "Running Snyk (non-blocking)..."
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                         withCredentials([string(credentialsId: "${SNYK_CRED_ID}", variable: 's_credentials_id')]){
+                         withCredentials([string(credentialsId: "${SNYK_CRED_ID}", variable: "${SNYK_SECRET}")]){
                             snykSecurity(
                                 snykInstallation: 'Snyk-installations@latest',
                                 severity: 'critical'
