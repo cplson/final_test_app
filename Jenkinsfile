@@ -14,7 +14,7 @@ pipeline {
         REPORT_DIR = "${env.WORKSPACE}/zap_reports"
         SNYK_CRED_ID = "s_credentials_id"
         SNYK_SECRET = "snyk_token"
-        SNYK_API_OVERRIDE = "https://snyk.io/api"
+        // SNYK_API = "https://snyk.io/api"
     }
 
     stages {
